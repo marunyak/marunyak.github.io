@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> TodoList </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href="style.css" rel="stylesheet"></head>
+<body>
+<div id="root">
+<header>TODOList</header>
+<main>
+    <nav class="filter">
+        <div class="block">
+            <input type="text" name="filter-search" autofocus="" placeholder="Search by title">
+        </div>
+        <div class="block">
+            <select name="filter-open-done">
+                <option value="all">all</option>
+                <option value="open">open</option>
+                <option value="done">done</option>
+            </select>
+        </div>
+        <div class="block">
+            <select name="filter-priority">
+                <option value="all">all</option>
+                <option value="high">high</option>
+                <option value="normal">normal</option>
+                <option value="low">low</option>
+            </select>
+        </div>
+        <div class="block create">Create</div>
+    </nav>
+    <section class="task-list"></section>
+</main>
+<footer>Andrii Maruniak</footer>
+</div>
+<div class="create-task">
+    <form class="create-task-form">
+        <label>Title:</label>
+        <input type="text" name="title" autofocus="" placeholder="Title">
+        <label>Description:</label>
+        <textarea type="text" name="description" autofocus="" placeholder="Description"></textarea>
+        <label>Priority:</label>
+        <select name="priority">
+            <option selected="selected" value="high">High</option>
+            <option value="normal">Normal</option>
+            <option value="low">Low</option>
+        </select>
+        <div class="buttons">
+            <div class="button cancel">Cancel</div>
+            <div class="button save">Save</div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="main.bundle.js"></script></body>
+</html>
