@@ -47,6 +47,7 @@ taskList.addEventListener('click', (e) => {
         titleTask.value = item.title;
         descriptionTask.value = item.description;
         priorityTask.value = item.priority;
+        document.body.classList.toggle('stop-scrolling');
         elem.parentElement.classList.toggle('show');
     }
 
