@@ -28,16 +28,12 @@ taskList.addEventListener('click', (e) => {
 
     if (elem.classList.contains('options')) {
         elem.children[0].classList.toggle('show');
-    }
-
-    if (elem.classList.contains('delete')) {
+    } else if (elem.classList.contains('delete')) {
         elem.parentElement.classList.toggle('show');
         list = list.filter((item) => item.id !== id);
         saveToLocalStorage(list);
         changeFilter();
-    }
-
-    if (elem.classList.contains('edit')) {
+    } else if (elem.classList.contains('edit')) {
         let item = list.find((item) => item.id === id);
         let isdone = editTaskParent.classList.contains("task-done");
         createTask.setAttribute('task-id', id);
@@ -49,9 +45,7 @@ taskList.addEventListener('click', (e) => {
         priorityTask.value = item.priority;
         document.body.classList.toggle('stop-scrolling');
         elem.parentElement.classList.toggle('show');
-    }
-
-    if (elem.classList.contains('done')) {
+    } else if (elem.classList.contains('done')) {
         list = list.filter((item) => {
             if (item.id === id) {
                 item.done = !item.done;
@@ -60,6 +54,10 @@ taskList.addEventListener('click', (e) => {
         });
         saveToLocalStorage(list);
         changeFilter();
+    } else {
+        document.querySelectorAll('.options-list.show').forEach((item) => {
+            item.classList.remove('show');
+        });
     }
 });
 
