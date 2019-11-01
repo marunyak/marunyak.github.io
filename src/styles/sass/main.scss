@@ -116,7 +116,7 @@ li {
 
 .task {
     position: relative;
-    margin-right:15px;
+    margin-right: 15px;
     margin-bottom: 20px;
     padding: 20px;
     padding-bottom: 25px;
@@ -160,8 +160,12 @@ li {
             box-shadow: -1px 0px 20px 0px rgba(0, 0, 0, 0.1);
             cursor: pointer;
 
-            & > .options-list{
+            & > .options-list {
                 display: none;
+                position: absolute;
+                right: 48px;
+                width: 100px;
+                color: $forms-text-color;
 
                 & > li {
                     padding: 10px;
@@ -174,15 +178,12 @@ li {
                 & > li:hover {
                     background-color: #1b8cff;
                 }
-
-                &.show {
-                    display: block;
-                    position: absolute;
-                    right: 55px;
-                    width: 100px;
-                    color: $forms-text-color;
-                }
             }
+
+            &:hover .options-list{
+                display: block;
+            }
+
         }
     }
 }

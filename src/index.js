@@ -26,16 +26,13 @@ taskList.addEventListener('click', (e) => {
                             .parentElement;
     let id = editTaskParent.id;
 
-    if (elem.classList.contains('options')) {
-        elem.children[0].classList.toggle('show');
-    } else if (elem.classList.contains('delete')) {
-        elem.parentElement.classList.toggle('show');
+    if (elem.classList.contains('delete')) {
         list = list.filter((item) => item.id !== id);
         saveToLocalStorage(list);
         changeFilter();
     } else if (elem.classList.contains('edit')) {
         let item = list.find((item) => item.id === id);
-        let isdone = editTaskParent.classList.contains("task-done");
+        let isdone = editTaskParent.classList.contains('task-done');
         createTask.setAttribute('task-id', id);
         createTask.setAttribute('task-done', isdone);
         createTask.classList.toggle('show');
@@ -44,7 +41,6 @@ taskList.addEventListener('click', (e) => {
         descriptionTask.value = item.description;
         priorityTask.value = item.priority;
         document.body.classList.toggle('stop-scrolling');
-        elem.parentElement.classList.toggle('show');
     } else if (elem.classList.contains('done')) {
         list = list.filter((item) => {
             if (item.id === id) {
@@ -54,10 +50,6 @@ taskList.addEventListener('click', (e) => {
         });
         saveToLocalStorage(list);
         changeFilter();
-    } else {
-        document.querySelectorAll('.options-list.show').forEach((item) => {
-            item.classList.remove('show');
-        });
     }
 });
 
@@ -99,9 +91,9 @@ document.querySelector('.create').addEventListener('click', (e) => {
 function changeFilter() {
     if(!list) return;
     let temp_list = '';
-    filter['search'] = searchFilter.value.replace(/(<([^>]+)>)/ig,"");
-    filter['open'] = openFilter.value.replace(/(<([^>]+)>)/ig,"");
-    filter['priority'] = priorityFilter.value.replace(/(<([^>]+)>)/ig,"");
+    filter['search'] = searchFilter.value.replace(/(<([^>]+)>)/ig,'');
+    filter['open'] = openFilter.value.replace(/(<([^>]+)>)/ig,'');
+    filter['priority'] = priorityFilter.value.replace(/(<([^>]+)>)/ig,'');
     temp_list = list.filter((item) => (filter.search === ''
                             || item.title.search(new RegExp(`^${filter.search.toLocaleLowerCase()}`,'g'))!== -1))
                     .filter((item, index, arr) => {
@@ -156,11 +148,28 @@ function cancel(e) {
     document.body.classList.toggle('stop-scrolling');
 }
 
+//Sort tasks by priority
+
+function sortTasks(arr) {
+    let high = [];
+    let normal = [];
+    let low = [];
+    let done = [];
+    arr.forEach((item) => {
+        if (item.done === true) done.push(item);
+        else if (item.priority === 'high') high.push(item);
+        else if (item.priority === 'normal') normal.push(item);
+        else if (item.priority === 'low') low.push(item);
+    });
+    return high.concat(normal,low,done);
+}
+
 //Render list of tasks
 
 function renderList(new_list = '') {
-    const renderTasks = new_list || list;
+    let renderTasks = new_list || list;
     taskList.innerHTML = '';
+    renderTasks = sortTasks(renderTasks);
     renderTasks.forEach((element) => {
         createElement(element.id, element.title, element.description, element.priority, element.done);
     });
